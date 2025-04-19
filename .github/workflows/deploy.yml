@@ -1,0 +1,30 @@
+name: Deploy HTML to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change to your branch name if it's not 'main'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload website files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."  # Assumes index.html is in the root
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
